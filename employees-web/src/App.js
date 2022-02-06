@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -29,6 +29,7 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route path="/" element={<Navigate replace to="/employee" />} />
             <Route
               path="/employee/add"
               element={
