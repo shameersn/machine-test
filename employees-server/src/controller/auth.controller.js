@@ -7,9 +7,21 @@ const { ErrorHandler } = require("../errorHandlers");
 const ONE_WEEK = 7 * 24 * 60 * 60;
 
 async function register(req, res) {
-  const user = await User.create(req.body);
 
+  const existingUser = await User.findOne({
+    where: {
+      email: req.body.email
+    }
+  });
+
+  if (existingUser) {
+    throw new ErrorHandler(400, "User exists with same email");
+  }
+
+  const user = await User.create(req.body);
   res.send(user);
+
+
 }
 
 async function login(req, res) {
@@ -22,7 +34,7 @@ async function login(req, res) {
   });
 
   if (!user) {
-    throw new ErrorHandler(404, "Unable to find a user");
+    throw new ErrorHandler(400, "Unable to find a user");
   }
 
   const match = await user.comparePassword(password);
@@ -31,7 +43,9 @@ async function login(req, res) {
   }
 
   const token = jwt.sign(user.toJSON(), jwt_secret, { expiresIn: ONE_WEEK });
-  res.send({ user: user.toJSON(), token });
+  const userObj = user.toJSON()
+  delete userObj.password;
+  res.send({ user: userObj, token });
 }
 
 module.exports = {
