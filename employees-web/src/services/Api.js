@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const client = axios.create({baseURL : process.env.BASE_URL || 'http://localhost:3000/'});
+const client = axios.create({baseURL : process.env.BASE_URL || 'https://esmt-srvr.herokuapp.com/'});
 
 client.interceptors.response.use(function (response) {
   return response.data;
