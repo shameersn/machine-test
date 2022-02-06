@@ -9,10 +9,11 @@ const {
   updateEmployee,
   deleteEmployee
 } = require("../controller/employee.controller");
+const createEmployeeValidator = require("../validators/createEmployee");
 
 router
   .get("/", catchErrors(getEmployees))
-  .post("/", catchErrors(createEmployee))
+  .post("/", createEmployeeValidator, catchErrors(createEmployee))
   .put("/:employeeId", catchErrors(updateEmployee))
   .get("/:employeeId", catchErrors(getEmployee))
   .delete("/:employeeId", catchErrors(deleteEmployee));

@@ -10,12 +10,32 @@ async function getEmployees(req, res) {
     where = {
       [Op.or]: [
         {
-          title: {
+          employeeId: {
             [Op.like]: `%${search}%`
           }
         },
         {
-          description: {
+          name: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        {
+          email: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        {
+          mobileNumber: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        {
+          address: {
+            [Op.like]: `%${search}%`
+          }
+        },
+        {
+          age: {
             [Op.like]: `%${search}%`
           }
         }

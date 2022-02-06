@@ -4,8 +4,11 @@ const { ErrorHandler } = require("../errorHandlers");
 module.exports = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email(),
-    password: Joi.string()
-      .min(3)
+    name: Joi.string().required(),
+    employeeId: Joi.string().required(),
+    mobileNumber: Joi.string().required(),
+    address: Joi.string().required(),
+    age: Joi.number().required(),
   });
 
   const { error } = schema.validate(req.body);
